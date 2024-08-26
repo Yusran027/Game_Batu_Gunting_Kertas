@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0 7%;
+        box-sizing: border-box;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+      }
+      .container p {
+        font-size: 3rem;
+        font-weight: 600;
+      }
+      .container a {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+      }
+      .container .btn {
+        display: flex;
+        gap: 2rem;
+      }
+      .container .btn img {
+        font-weight: 600;
+        width: 8rem;
+        height: 8rem;
+        border-radius: 50%;
+        border: 2px solid wheat;
+        cursor: pointer;
+        margin-bottom: 3rem;
+      }
+      .container .btn #batu {
+        background: linear-gradient(45deg, #ff6b6b, #f06595);
+        transition: all 300ms;
+      }
+      .container .btn #batu:hover {
+        background: linear-gradient(45deg, #f06595, #ff6b6b);
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .container .btn #gunting {
+        background: linear-gradient(45deg, #20bf6b, #01baef);
+        transition: all 300ms;
+      }
+      .container .btn #gunting:hover {
+        background: linear-gradient(45deg, #01baef, #20bf6b);
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .container .btn #kertas {
+        background: linear-gradient(45deg, #a06cd5, #6e7bff);
+        transition: all 300ms;
+      }
+      .container .btn #kertas:hover {
+        background: linear-gradient(45deg, #6e7bff, #a06cd5);
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      #im {
+        height: 4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a id="vs"></a>
+      <p id="hasil">Ayo Main</p>
+      <div class="btn">
+        <img id="batu" onclick="play('batu')" src="img/batu.png" />
+        <img id="gunting" onclick="play('gunting')" src="img/gunting.png" />
+        <img id="kertas" onclick="play('kertas')" src="img/kertas.png" />
+      </div>
+      <a id="score"></a>
+    </div>
+    <script>
+      var playerScore = 0;
+      var computerScore = 0;
+      var seri = 0;
+      function play(player) {
+        var comMath = Math.random();
+
+        var hasil = "";
+
+        if (comMath < 0.35) {
+          com = "batu";
+        } else if (comMath > 0.36 && comMath < 0.6) {
+          com = "gunting";
+        } else {
+          com = "kertas";
+        }
+        if (player == com) {
+          hasil = "SERI";
+        } else if (player == "gunting") {
+          hasil = com == "batu" ? "KALAH" : "MENANG";
+        } else if (player == "batu") {
+          hasil = com == "kertas" ? "KALAH" : "MENANG";
+        } else if (player == "kertas") {
+          hasil = com == "gunting" ? "KALAH" : "MENANG";
+        } else {
+          hasil = "anda salah input";
+        }
+
+        document.getElementById("hasil").innerHTML = "Kamu " + hasil;
+        var imgCom = '<img id="im" src="img/' + com + '.png" />';
+        var imgPlayer = '<img id="im" src="img/' + player + '.png" />';
+
+        // var imgCom = "";
+        // if (com == "batu") {
+        //   imgCom = '<img id="im" src="img/batu.png" />';
+        // } else if (com == "gunting") {
+        //   imgCom = '<img id="im" src="img/gunting.png" />';
+        // } else {
+        //   imgCom = '<img id="im" src="img/kertas.png" />';
+        // }
+        // var imgPlayer = "";
+        // if (player == "batu") {
+        //   imgPlayer = '<img id="im" src="img/batu.png" />';
+        // } else if (player == "gunting") {
+        //   imgPlayer = '<img id="im" src="img/gunting.png" />';
+        // } else {
+        //   imgPlayer = '<img id="im" src="img/kertas.png" />';
+        // }
+
+        if (hasil == "MENANG") {
+          playerScore++;
+        } else if (hasil == "KALAH") {
+          computerScore++;
+        } else if (hasil == "SERI") {
+          seri++;
+        }
+
+        document.getElementById("vs").innerHTML =
+          "kamu" + imgPlayer + "VS" + imgCom + " Komputer";
+        document.getElementById("score").innerHTML =
+          "Skor: Kamu " +
+          playerScore +
+          " - " +
+          computerScore +
+          " Komputer & Seri: " +
+          seri;
+      }
+    </script>
+  </body>
+</html>
